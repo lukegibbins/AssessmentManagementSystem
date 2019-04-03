@@ -1,0 +1,232 @@
+﻿@page
+@model InteractiveAssessment.Pages.Questions.DragnDrop.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2>Delete Interactive Question (List Sort) <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">Help</button></h2>
+<hr />
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Interactive Question Support</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    An Interactive List-Sort question is a question which requests students to drag and drop items of a list into a specific order in relation to the question being asked.
+                    <br /><br />
+                    The items of the list are ordered from top to bottom, with the highest or largest item value being first; there are 4 items in total in the list.
+                    <br /><br />
+                    An example question for an interactive question format could be: “Drag these entries in order of their size”.
+                </p>
+                <br /><br />
+                <p style="text-decoration:underline">Property Definitions</p>
+                <ul>
+                    <li>
+                        List Item 1 = This refers to the 1st item which is at the top of the list
+                    </li>
+                    <li>
+                        List Item 2 = This refers to the 2nd item in the list
+                    </li>
+                    <li>
+                        List Item 3 = This refers to the 3rd item in the list
+                    </li>
+                    <li>
+                        List Item 4 = This refers to the 4th item which is at the bottom of the list
+                    </li>
+                    <li>
+                        Default Position = Refers to the position of the item the student will see
+                    </li>
+                    <li>
+                        Correct Position = Refers to the correct position in the list where the item should be situated for a correct answer
+                    </li>
+                </ul>
+                <br />
+                <br />
+                <p style="text-decoration:underline"><strong>View the clip below for an example of this question</strong></p>
+                <video width="400" height="240" controls>
+                    <source style="text-align:center" src="~/IQ.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*Form now has compatibillity for image upload in form*@
+<form method="post" enctype="multipart/form-data">
+    <div class="form-border-main">
+
+        <input type="hidden" asp-for="Interactive.Id" value="@Model.Interactive.Id" />
+        <input type="hidden" asp-for="Interactive.AssessmentId" value="@Model.Interactive.AssessmentId" />
+        <input type="hidden" asp-for="Interactive.QuestionType" value="Interactive" />
+        <input type="hidden" asp-for="Interactive.LastUpdated" value="@Model.CurrentDate" />
+        <input type="hidden" asp-for="Interactive.VersionNo" value="1.0" />
+
+        <br />
+        <fieldset disabled>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Interactive.QuestionTitle" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    <input asp-for="Interactive.QuestionTitle" class="form-control" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.Name1" class="custom-label" style="text-decoration:underline"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Interactive.Name1" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.RowNo1" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Interactive.RowNo1" value="1" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row has-success">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.CorrectRowNo1" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    @Html.DropDownListFor(m => m.Interactive.CorrectRowNo1, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.Name2" class="custom-label" style="text-decoration:underline"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Interactive.Name2" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.RowNo2" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Interactive.RowNo2" value="2" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row has-success">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.CorrectRowNo2" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    @Html.DropDownListFor(m => m.Interactive.CorrectRowNo2, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.Name3" class="custom-label" style="text-decoration:underline"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Interactive.Name3" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.RowNo3" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Interactive.RowNo3" value="3" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row has-success">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.CorrectRowNo3" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    @Html.DropDownListFor(m => m.Interactive.CorrectRowNo3, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.Name4" class="custom-label" style="text-decoration:underline"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Interactive.Name4" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.RowNo4" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Interactive.RowNo4" value="4" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row has-success">
+                <div class="col-sm-3">
+                    <label asp-for="Interactive.CorrectRowNo4" class="custom-label"></label>
+                </div>
+                <div class="col-sm-2">
+                    @Html.DropDownListFor(m => m.Interactive.CorrectRowNo4, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row has-warning">
+                <div class="col-sm2">
+                    <label asp-for="Interactive.Feedback" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    @Html.TextAreaFor(m => m.Interactive.Feedback, 10, 15, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            @*Image Upload here*@
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Interactive.Image" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            @if (Model.Interactive.Image != null)
+            {
+                <div style="padding-left:190px">
+                    <img src="@Model.Interactive.Image" style="border-radius:5px; width:35%; border: 1px solid #bbb9b9" />
+                </div>
+            }
+            <hr />
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Interactive.Include, new { @checked = true }) Include question in assessment
+                </label>
+            </div>
+        </fieldset>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Delete Question" class="btn btn-default btn-danger" />
+            <a asp-page="/Questions/Index" asp-route-id="@Model.Interactive.AssessmentId" class="btn btn-default btn-primary">Back to Questions</a>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

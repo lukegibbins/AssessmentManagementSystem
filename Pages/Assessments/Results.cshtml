@@ -1,0 +1,324 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.ResultsModel
+@using InteractiveAssessment.Models.QuestionModels;
+@using InteractiveAssessment.Models;
+@{
+    ViewData["Title"] = "Results";
+}
+@section Scripts{
+    <script src="~/js/mysite.js"></script>
+}
+
+<br />
+<h2>Your Results</h2>
+<hr />
+<br />
+
+<div style="clear:both; margin:0 auto">
+    <div class="panel panel-success custom-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Results</h3>
+        </div>
+        <div class="panel-body">
+            <br />
+            <ul class="list-group" style="border: 1px solid #bbb9b9;">
+
+                @if (Model.decimalToInt >= 40)
+                {
+                    <li class="list-group-item" style="color:green">
+                        <strong>Your Score: </strong> &nbsp; @Model.decimalToInt%
+                    </li>
+                }
+                else
+                {
+                    <li class="list-group-item" style="color:red">
+                        <strong>Your Score: </strong> &nbsp; @Model.decimalToInt%
+                    </li>
+                }
+                <li class="list-group-item">
+                    <strong>Questions Correct: </strong> &nbsp; @Model.QuestionsCorrect/@Model.Questions.Count()
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div style="clear:both; margin:0 auto">
+    <div class="panel panel-info custom-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Marks & Feedback</h3>
+        </div>
+        <div class="panel-body">
+            <p style="text-align:center; font-size:large"><strong><i>Click to expand each section for further information.</i> </strong> </p><br />
+            @{
+                int i = 1;
+                int QuestionIndexer = 0;
+                int AnswerIndexer = 0;
+
+                foreach (var question in Model.Questions)
+                {
+                    string collapseA = "#collapse" + i;
+                    string collapseB = "collapse" + i;
+
+                    @*Start of each panel*@
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="@collapseA">
+                                        @i .&nbsp; @Model.Questions[QuestionIndexer].QuestionTitle
+                                        @if (Model.Questions[QuestionIndexer].QuestionType == "MCQ")
+                                        {
+                                            MCQ MCQ = (MCQ)Model.Questions[QuestionIndexer];
+                                            try
+                                            {
+                                                @if (MCQ.CorrectAnswerStringValue == @Model.UserAnswers[AnswerIndexer].AnswerGiven)
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:green"> &#10004;</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                            }
+                                        }
+                                        else if (Model.Questions[QuestionIndexer].QuestionType == "True/False")
+                                        {
+                                            TrueFalseOption TrueFalse = (TrueFalseOption)Model.Questions[QuestionIndexer];
+
+                                            try
+                                            {
+
+                                                @if (TrueFalse.CorrectAnswer == Model.UserAnswers[AnswerIndexer].AnswerGiven)
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:green"> &#10004;</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                            }
+                                        }
+                                        else if (Model.Questions[QuestionIndexer].QuestionType == "Short Answer")
+                                        {
+                                            ShortAnswerOption ShortAnswer = (ShortAnswerOption)Model.Questions[QuestionIndexer];
+
+                                            try
+                                            {
+                                                @if (Model.UserAnswers[AnswerIndexer].AnswerGiven != null)
+                                                {
+                                                    string camelCase = char.ToUpper(Model.UserAnswers[AnswerIndexer].AnswerGiven[0]) + Model.UserAnswers[AnswerIndexer].AnswerGiven.Substring(1);
+
+                                                    @if (ShortAnswer.CorrectAnswer == Model.UserAnswers[AnswerIndexer].AnswerGiven
+                                                  || ShortAnswer.CorrectAnswer == Model.UserAnswers[AnswerIndexer].AnswerGiven.ToUpper()
+                                                  || ShortAnswer.CorrectAnswer == Model.UserAnswers[AnswerIndexer].AnswerGiven.ToLower()
+                                                  || ShortAnswer.CorrectAnswer == camelCase)
+                                                    {
+                                                        <span class="badge badge-light" style="float:right; background-color:green"> &#10004;</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                            }
+                                        }
+                                        else if (Model.Questions[QuestionIndexer].QuestionType == "Interactive")
+                                        {
+                                            Interactive Interactive = (Interactive)Model.Questions[QuestionIndexer];
+
+                                            try
+                                            {
+
+                                                @if (Interactive.CorrectNameListing == Model.UserAnswers[AnswerIndexer].AnswerGiven)
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:green"> &#10004;</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                <span class="badge badge-light" style="float:right; background-color:red">&#10006; </span>
+                                            }
+                                        }
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="@collapseB" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    @if (Model.Questions[QuestionIndexer].QuestionType == "MCQ")
+                                    {
+                                        MCQ MCQ = (MCQ)Model.Questions[QuestionIndexer];
+                                        try
+                                        {
+                                            @if (Model.UserAnswers[AnswerIndexer].AnswerGiven == null)
+                                            {
+                                                <p style="color:red">Your answer: &nbsp; N/A  </p>
+                                            }
+                                            else
+                                            {
+                                                @if (Model.UserAnswers[AnswerIndexer].AnswerGiven == MCQ.CorrectAnswerStringValue)
+                                                {
+                                                    <p style="color:green">Your answer: &nbsp; @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red">Your answer: &nbsp;   @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                                }
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            <p style="color:red">Your answer: &nbsp; N/A</p>
+                                        }
+                                        <p style="color:green">Correct answer: &nbsp; <strong>@MCQ.CorrectAnswerStringValue</strong></p>
+                                        <br />
+                                        <div class="well well-sm" style="border: solid 1px #f39c12">
+                                            <p style="font-size:large"> <i>See Feedback</i></p>
+                                            @MCQ.Feedback
+                                        </div>
+                                    }
+
+
+                                    else if (Model.Questions[QuestionIndexer].QuestionType == "True/False")
+                                    {
+                                        TrueFalseOption TrueFalse = (TrueFalseOption)Model.Questions[QuestionIndexer];
+                                        try
+                                        {
+
+                                            @if (Model.UserAnswers[AnswerIndexer].AnswerGiven == null)
+                                            {
+                                                <p style="color:red">Your answer: &nbsp; N/A  </p>
+                                            }
+                                            else
+                                            {
+                                                @if (Model.UserAnswers[AnswerIndexer].AnswerGiven == TrueFalse.CorrectAnswer)
+                                                {
+                                                    <p style="color:green">Your answer: &nbsp; @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red">Your answer: &nbsp; @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                                }
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            <p style="color:red">Your answer: &nbsp; N/A</p>
+                                        }
+                                        <p style="color:green">Correct answer: &nbsp; <strong>@TrueFalse.CorrectAnswer</strong></p>
+                                        <br />
+                                        <div class="well well-sm" style="border: solid 1px #f39c12">
+                                            <p style="font-size:large"> <i>See Feedback</i></p>
+                                            @TrueFalse.Feedback
+                                        </div>
+                                    }
+
+                                    else if (Model.Questions[QuestionIndexer].QuestionType == "Short Answer")
+                                    {
+                                        ShortAnswerOption ShortAnswer = (ShortAnswerOption)Model.Questions[QuestionIndexer];
+                                        try
+                                        {
+                                            @if (Model.UserAnswers[QuestionIndexer].AnswerGiven == null)
+                                            {
+                                                <p style="color:red">Your answer: &nbsp; N/A  </p>
+                                            }
+                                            else
+                                            {
+                                                string camelCase = char.ToUpper(Model.UserAnswers[QuestionIndexer].AnswerGiven[0]) + Model.UserAnswers[QuestionIndexer].AnswerGiven.Substring(1);
+
+                                                @if (ShortAnswer.CorrectAnswer == Model.UserAnswers[QuestionIndexer].AnswerGiven
+                                         || ShortAnswer.CorrectAnswer == Model.UserAnswers[QuestionIndexer].AnswerGiven.ToUpper()
+                                         || ShortAnswer.CorrectAnswer == Model.UserAnswers[QuestionIndexer].AnswerGiven.ToLower()
+                                         || ShortAnswer.CorrectAnswer == camelCase)
+                                                {
+                                                    <p style="color:green">Your answer: &nbsp; @Model.UserAnswers[QuestionIndexer].AnswerGiven</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red">Your answer: &nbsp; @Model.UserAnswers[QuestionIndexer].AnswerGiven</p>
+                                                }
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            <p style="color:red">Your answer: &nbsp; N/A</p>
+
+                                        }
+                                        <p style="color:green">Correct answer: &nbsp; <strong>@ShortAnswer.CorrectAnswer</strong></p>
+                                        <br />
+                                        <div class="well well-sm" style="border: solid 1px #f39c12">
+                                            <p style="font-size:large"> <i>See Feedback</i></p>
+                                            @ShortAnswer.Feedback
+                                        </div>
+                                    }
+
+                                    else if (Model.Questions[QuestionIndexer].QuestionType == "Interactive")
+                                    {
+                                        Interactive Interactive = (Interactive)Model.Questions[QuestionIndexer];
+                                        try
+                                        {
+
+
+                                            @if (Interactive.CorrectNameListing == Model.UserAnswers[AnswerIndexer].AnswerGiven)
+                                            {
+                                                <p style="color:green">Your answer: &nbsp; @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                            }
+                                            else
+                                            {
+                                                <p style="color:red">Your answer: &nbsp; @Model.UserAnswers[AnswerIndexer].AnswerGiven</p>
+                                            }
+
+                                        }
+                                        catch
+                                        {
+                                            <p style="color:red">Your answer: &nbsp; N/A</p>
+                                        }
+
+                                        <p style="color:green">Correct answer: &nbsp; <strong>@Interactive.CorrectNameListing</strong></p>
+                                        <br />
+                                        <div class="well well-sm" style="border: solid 1px #f39c12">
+                                            <p style="font-size:large"> <i>See Feedback</i></p>
+                                            @Interactive.Feedback
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*End of each panel*@
+                    i++;
+                    QuestionIndexer++;
+                    AnswerIndexer++;
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<br />
+<a asp-page-handler="Finish" class="btn btn-success btn-lg">
+    Finish
+</a>
+

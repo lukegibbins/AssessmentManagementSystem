@@ -1,0 +1,76 @@
+﻿@page
+@model InteractiveAssessment.Pages.Stats.AssessmentsModel
+@{
+    ViewData["Title"] = "Assessments";
+}
+
+<br />
+<h2>Assessment Statistics</h2>
+<hr />
+
+@*If there are no assessments, display this message*@
+@if (Model.Assessments.Count() < 1)
+{
+    <br />
+    <h4>You currently have no assessments.</h4>
+}
+
+@*Display table info for assessments*@
+<p style="font-size:small"><i>* Pass rate refers the number of students who have achieved a score of 40% or higher</i></p>
+<div class="form-border-main">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                No.
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Assessments[0].AssessmentName)
+            </th>
+            <th>
+                Pass rate
+            </th>
+            <th></th>
+        </tr>
+
+        @{ int i = 1;}
+        @{ int Indexer = 0; }
+        @foreach (var item in Model.Assessments)
+        {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.AssessmentName)
+                </td>
+                @if (@Model.AssessmentPassRate[Indexer] != -1)
+                {
+                    @if (@Model.AssessmentPassRate[Indexer] >= 40)
+                    {
+                        <td style="color:green">
+                            @Model.AssessmentPassRate[Indexer++]%
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color:red">
+                            @Model.AssessmentPassRate[Indexer++]%
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>
+                        N/A
+                    </td>
+                }
+                <td>
+                    <a asp-page="Student" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Student Results <span class="glyphicon glyphicon-stats"></span> </a>
+                    <a asp-page="Question" asp-route-id="@item.Id" class="btn btn-info btn-sm">Question Statistics <span class="glyphicon glyphicon-stats"></span></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

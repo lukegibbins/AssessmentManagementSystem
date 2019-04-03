@@ -1,0 +1,79 @@
+﻿@page
+@model InteractiveAssessment.Pages.Questions.TrueFalse.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2>Delete True/False</h2>
+<hr />
+
+<form method="post">
+    <div class="form-border-main">
+
+        @*Bind hidden values when an multiple-choice question is created
+            This will bind the assessmentId to the question
+        *@
+        <input type="hidden" asp-for="TrueFalse.Id" />
+        <input type="hidden" asp-for="TrueFalse.AssessmentId" value="@Model.TrueFalse.AssessmentId" />
+        <input type="hidden" asp-for="TrueFalse.QuestionType" value="True/False" />
+        <input type="hidden" asp-for="TrueFalse.LastUpdated" value="@Model.CurrentDate" />
+        <fieldset disabled>
+            <br />
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="TrueFalse.QuestionTitle" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    <input asp-for="TrueFalse.QuestionTitle" class="form-control" />
+                </div>
+            </div>
+            <hr />
+          
+            <div class="form-group row has-success">
+                <div class="col-sm-2">
+                    <label asp-for="TrueFalse.CorrectAnswer" class="custom-label"></label>
+                </div>
+                <div class="col-lg-3">
+                    @Html.DropDownListFor(m => m.TrueFalse.CorrectAnswer, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row has-warning">
+                <div class="col-sm2">
+                    <label asp-for="TrueFalse.Feedback" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    @Html.TextAreaFor(m => m.TrueFalse.Feedback, 10, 15, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            @*Image Upload here*@
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="TrueFalse.Image" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            @if (Model.TrueFalse.Image != null)
+            {
+                <div style="padding-left:190px">
+                    <img src="@Model.TrueFalse.Image" style="border-radius:5px; width:35%; border: 1px solid #bbb9b9" />
+                </div>
+            }
+            <hr />
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.TrueFalse.Include, new { @checked = true }) Include question in assessment
+                </label>
+            </div>
+        </fieldset>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Delete Question" class="btn btn-default btn-danger" />
+            <a asp-page="/Questions/Index" asp-route-id="@Model.TrueFalse.AssessmentId" class="btn btn-default btn-primary">Back to Questions</a>
+        </div>
+    </div>
+</form>

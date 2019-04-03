@@ -1,0 +1,12 @@
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\bin\MCD\Debug\netcoreapp2.0\InteractiveAssessment.deps.json
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\bin\MCD\Debug\netcoreapp2.0\InteractiveAssessment.runtimeconfig.json
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\bin\MCD\Debug\netcoreapp2.0\InteractiveAssessment.runtimeconfig.dev.json
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\bin\MCD\Debug\netcoreapp2.0\InteractiveAssessment.dll
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\bin\MCD\Debug\netcoreapp2.0\InteractiveAssessment.pdb
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.csprojAssemblyReference.cache
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.csproj.CoreCompileInputs.cache
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.AssemblyInfoInputs.cache
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.AssemblyInfo.cs
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.dll
+C:\Users\lukeg\Documents\Visual Studio 2017\Projects\InteractiveAssessment\InteractiveAssessment\obj\MCD\Debug\netcoreapp2.0\InteractiveAssessment.pdb

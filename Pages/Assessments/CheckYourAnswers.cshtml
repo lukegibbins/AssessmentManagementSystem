@@ -1,0 +1,105 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.CheckYourAnswersModel
+@{
+    ViewData["Title"] = "CheckYourAnswers";
+    var endTime = DateTime.Now.AddSeconds(Model.Timer);
+    var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds.ToString("#");
+}
+<br />
+<div style="text-align:center">
+    <p>Time Remaining: <span id="minRemaining"></span>:<span id="secRemaining"></span> </p>
+</div>
+<br />
+<h2>Check your answers</h2>
+<hr />
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center;font-size:x-large">Questions answered: @Model.QuestionsAnswered/@Model.Questions.Count</h3>
+    </div>
+    <div class="panel-body">
+        <div class="well well-lg">
+            <ul class="list-group" style="border: 1px solid;">
+                @{
+                    int i = 1;
+                    int QuestionIndexer = 0;
+                    foreach (var answer in Model.UserAnswers)
+                    {
+
+                        @if (answer.AnswerGiven == null)
+                        {
+                            <li class="list-group-item">
+                                <p style="font-size:larger"> @i. &nbsp; @Model.Questions[QuestionIndexer].QuestionTitle</p>
+                                <p style="font-size:larger; color:red"><strong>&nbsp; &nbsp; &nbsp; &nbsp; No answer provided</strong></p>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <p style="font-size:larger"> @i. &nbsp; @Model.Questions[QuestionIndexer].QuestionTitle</p>
+                                <p style="font-size:larger"><strong> &nbsp; &nbsp; &nbsp; &nbsp; @answer.AnswerGiven</strong></p>
+                            </li>
+                        }
+                        i++;
+                        QuestionIndexer++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<a asp-page="/Assessments/Start" asp-route-id="@Model.Assessment.Id" class="btn btn-primary btn-default">
+    Back to Questions
+</a>
+<a asp-page="/Assessments/Results" asp-route-id="@Model.Assessment.Id" class="btn btn-warning btn-default">
+    Submit Answers
+</a>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <script>
+        var remSeconds = @timeRemaining;
+        var secondsCounter = remSeconds % 60;
+
+        if (secondsCounter === 0) {
+            secondsCounter = 1;
+        }
+        function startTick() {
+            document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+            document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds/60));
+
+            function formatNumber(number) {
+                if (number < 10) {
+                    return '0' + number;
+                } else {
+                    return '' + number;
+                }
+            }
+
+            var _tick = setInterval(function () {
+                if (remSeconds > 0) {
+
+                    remSeconds = remSeconds - 1;
+                    secondsCounter = secondsCounter - 1;
+                    document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+                    document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds / 60));
+
+                    if (secondsCounter === 0) {
+                        secondsCounter = 60;
+                    }
+                } else {
+                    window.location.href = '/Assessments/Results?id='+@Model.Assessment.Id+'#nbb';
+                    clearInterval(_tick);
+                }
+
+            }, 1000);
+        }
+        startTick();
+    </script>
+}

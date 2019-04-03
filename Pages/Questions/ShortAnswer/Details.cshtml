@@ -1,0 +1,82 @@
+﻿@page
+@model InteractiveAssessment.Pages.Questions.ShortAnswer.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2>Short Answer Details</h2>
+<p> &nbsp;&nbsp;&nbsp; Version: @Model.ShortAnswer.VersionNo</p>
+<hr />
+
+@*Form tag has been removed. No post request is being made*@
+<div class="form-border-main">
+
+    @*Bind hidden values when an multiple-choice question is created
+        This will bind the assessmentId to the question
+    *@
+    <input type="hidden" asp-for="ShortAnswer.Id" />
+    <input type="hidden" asp-for="ShortAnswer.AssessmentId" value="@Model.ShortAnswer.AssessmentId" />
+    <input type="hidden" asp-for="ShortAnswer.QuestionType" value="Short Answer" />
+    <input type="hidden" asp-for="ShortAnswer.LastUpdated" value="@Model.CurrentDate" />
+
+    <br />
+    <fieldset disabled>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="ShortAnswer.QuestionTitle" class="custom-label"></label>
+            </div>
+            <div class="col-lg-6">
+                <input asp-for="ShortAnswer.QuestionTitle" class="form-control" />
+            </div>
+            <span asp-validation-for="ShortAnswer.QuestionTitle" class="text-danger"></span>
+        </div>
+        <hr />
+        <div class="form-group row has-success">
+            <div class="col-sm-2">
+                <label asp-for="ShortAnswer.CorrectAnswer" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="ShortAnswer.CorrectAnswer" class="form-control" />
+            </div>
+            <span asp-validation-for="ShortAnswer.CorrectAnswer" class="text-danger"></span>
+        </div>
+        <hr />
+        <div class="form-group row has-warning">
+            <div class="col-sm2">
+                <label asp-for="ShortAnswer.Feedback" class="custom-label"></label>
+            </div>
+            <div class="col-lg-6">
+                @Html.TextAreaFor(m => m.ShortAnswer.Feedback, 10, 15, new { @class = "form-control" })
+            </div>
+            <span asp-validation-for="ShortAnswer.Feedback" class="text-danger"></span>
+        </div>
+        <hr />
+        @*Image Upload here*@
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="ShortAnswer.Image" class="custom-label"></label>
+            </div>
+            <div class="col-sm-4">
+                <input type="file" name="files" multiple class="form-control" />
+            </div>
+        </div>
+        @if (Model.ShortAnswer.Image != null)
+        {
+            <div style="padding-left:190px">
+                <img src="@Model.ShortAnswer.Image" style="border-radius:5px; width:35%; border: 1px solid #bbb9b9" />
+            </div>
+        }
+        <hr />
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.ShortAnswer.Include, new { @checked = true }) Include question in assessment
+            </label>
+        </div>
+    </fieldset>
+    <br />
+    <div class="form-group">
+        <a asp-page="/Questions/ShortAnswer/Edit" asp-route-id="@Model.ShortAnswer.Id" class="btn btn-default btn-info">Edit</a>
+        <a asp-page="/Questions/Index" asp-route-id="@Model.ShortAnswer.AssessmentId" class="btn btn-default btn-primary">Back to Questions</a>
+    </div>
+</div>

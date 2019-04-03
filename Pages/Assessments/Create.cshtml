@@ -1,0 +1,54 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2>Create Assessment</h2>
+<hr />
+
+<form method="post">
+    <div class="form-border-main">
+        @if (Model.ErrorQuestionMessage != null)
+        {
+            <div class="alert alert-danger alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @Model.ErrorQuestionMessage
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        @*Bind hidden values when an assessment is created*@
+        <input type="hidden" asp-for="Assessment.ActiveStatus" value="Inactive" />
+        <input type="hidden" asp-for="Assessment.Password" value="@Model.AssessmentPassword" />
+        <input type="hidden" asp-for="Assessment.LastUpdated" value="@Model.CurrentDate" />
+        <input type="hidden" asp-for="Assessment.UserId" value="@Model.CurrentUserId" />
+        <input type="hidden" asp-for="Assessment.Duration" value="2" />
+
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label asp-for="Assessment.AssessmentName" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="Assessment.AssessmentName" class="form-control" />
+            </div>
+            <span asp-validation-for="Assessment.AssessmentName" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+
+
+<div class="form-group">
+    <input type="submit" value="Create Assessment" class="btn btn-default btn-success" />
+    <a asp-page="Index" class="btn btn-default btn-primary">Back to Assessments</a>
+</div>
+</form>
+
+
+@section Scripts{ 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

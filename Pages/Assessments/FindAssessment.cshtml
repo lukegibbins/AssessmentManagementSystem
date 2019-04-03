@@ -1,0 +1,59 @@
+﻿@page
+@model InteractiveAssessment.Pages.FindAssessmentModel
+@{
+    ViewData["Title"] = "FindAssessment";
+}
+
+<br />
+<h2>Find Your Assessment</h2>
+<hr />
+
+@*Error Message*@
+@if (Model.Message != null)
+{
+    <br />
+    <div class="alert alert-danger alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Message
+    </div>
+}
+
+<br />
+<div style="width:50%; clear:both; margin:0 auto">
+    <div class="panel panel-primary custom-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find Your Assessment</h3>
+        </div>
+        <div class="panel-body">
+            <div class="well well-lg">
+                <form method="post">
+                    <div class="form-group row">
+                        <div class="col-sm2; custom-label" style="font-size:medium">
+                            Select Assessment Id
+                        </div>
+                        <br />
+                        <div class="col-lg-12">
+                                @Html.DropDownListFor(m => m._findAssessment._id, Model.AssessmentIds, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm2; custom-label" style="font-size:medium">
+                            Enter Assessment Password
+                        </div>
+                        <br />
+                        <div class="col-lg-12">
+                            <input asp-for="_findAssessment._password" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <input type="submit" value="Go to Assessment" class="btn btn-default btn-success" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAo3VCk2Ph8Uagkhw0yWXzNQAAAAACAAAAAAAQZgAAAAEAACAAAAAgAcJThFRQZvH8RSwBBtJ4g9RR4GYklbAf77QldBCwagAAAAAOgAAAAAIAACAAAAB6dVF1cxbcf5eyBzvitAnWtlXZwfGYNus3pt8rZILRz4AAAAAR5jtWCKFLSnRXe5zt/galGC2r6I3uoIZycf9wyvjBqwQIYUJ3sEVj6rynYo6wCpIPaAgmtLU69qVcYImh5fdnmUKGBFsh0TU2NqezZmh+puLNO60tzOCTNRlfSZvDFWJuMED9/+OCzJuKgkFFryZE28tMI+HJEb3q9Uw/t8QvvkAAAAD9AI0PWi53IEWZ2Xea1LiRXlhpMFJn1oSh85mbcBak+bih8nbnuPrdZafolv1HFaL0UZaJTeFK/uo7h1kuy6c9</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:assessmentmanagementsystemdbserver.database.windows.net,1433%3bInitial Catalog=AssessmentManagementSystem_db%3bUser Id=sqladmin%40assessmentmanagementsystemdbserver%3bPassword=Password1!</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

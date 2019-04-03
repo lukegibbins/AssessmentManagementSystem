@@ -1,0 +1,112 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-InteractiveAssessment-646A8144-B6DC-413E-8735-4DEDA993DCB6</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Data\ApplicationDbContext.cs" />
+    <Content Include="Data\ApplicationUser.cs" />
+    <Content Include="Data\DataSeeder.cs" />
+    <Content Include="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Content Include="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Content Include="Data\Migrations\20190125103037_InitialMigration.cs" />
+    <Content Include="Data\Migrations\20190125103037_InitialMigration.Designer.cs" />
+    <Content Include="Data\Migrations\20190125120607_AssessmentMigration.cs" />
+    <Content Include="Data\Migrations\20190125120607_AssessmentMigration.Designer.cs" />
+    <Content Include="Data\Migrations\20190125120851_AssessmentMigrationUpdatedName.cs" />
+    <Content Include="Data\Migrations\20190125120851_AssessmentMigrationUpdatedName.Designer.cs" />
+    <Content Include="Data\Migrations\20190125122430_AddedPasswordToAssessmentTable.cs" />
+    <Content Include="Data\Migrations\20190125122430_AddedPasswordToAssessmentTable.Designer.cs" />
+    <Content Include="Data\Migrations\20190125130815_AmendedAssessmentType.cs" />
+    <Content Include="Data\Migrations\20190125130815_AmendedAssessmentType.Designer.cs" />
+    <Content Include="Data\Migrations\20190125132446_AmendedAssessmentTypeModified.cs" />
+    <Content Include="Data\Migrations\20190125132446_AmendedAssessmentTypeModified.Designer.cs" />
+    <Content Include="Data\Migrations\20190125151813_ModifiedAssessmentModel.cs" />
+    <Content Include="Data\Migrations\20190125151813_ModifiedAssessmentModel.Designer.cs" />
+    <Content Include="Data\Migrations\20190125152334_ModifiedAssessmentModelString.cs" />
+    <Content Include="Data\Migrations\20190125152334_ModifiedAssessmentModelString.Designer.cs" />
+    <Content Include="Data\Migrations\20190125155629_ModifiedAssessmentDuration.cs" />
+    <Content Include="Data\Migrations\20190125155629_ModifiedAssessmentDuration.Designer.cs" />
+    <Content Include="Data\Migrations\20190126133326_MCQtable.cs" />
+    <Content Include="Data\Migrations\20190126133326_MCQtable.Designer.cs" />
+    <Content Include="Data\Migrations\20190126162652_InheritanceTPH.cs" />
+    <Content Include="Data\Migrations\20190126162652_InheritanceTPH.Designer.cs" />
+    <Content Include="Data\Migrations\20190126170851_Inheritance.cs" />
+    <Content Include="Data\Migrations\20190126170851_Inheritance.Designer.cs" />
+    <Content Include="Data\Migrations\20190126182645_ChangedIdToIntInQuestionTable.cs" />
+    <Content Include="Data\Migrations\20190126182645_ChangedIdToIntInQuestionTable.Designer.cs" />
+    <Content Include="Data\Migrations\20190127130206_AddingPropertiesToMCQ.cs" />
+    <Content Include="Data\Migrations\20190127130206_AddingPropertiesToMCQ.Designer.cs" />
+    <Content Include="Data\Migrations\20190128121721_ImageUploadMigration.cs" />
+    <Content Include="Data\Migrations\20190128121721_ImageUploadMigration.Designer.cs" />
+    <Content Include="Data\Migrations\20190201140934_UserAnswerMigration.cs" />
+    <Content Include="Data\Migrations\20190201140934_UserAnswerMigration.Designer.cs" />
+    <Content Include="Data\Migrations\20190201143708_UserAnswerMigration2.cs" />
+    <Content Include="Data\Migrations\20190201143708_UserAnswerMigration2.Designer.cs" />
+    <Content Include="Data\Migrations\20190201162758_ChangeAnswerTypeId.cs" />
+    <Content Include="Data\Migrations\20190201162758_ChangeAnswerTypeId.Designer.cs" />
+    <Content Include="Data\Migrations\20190201165147_AnswerPosition.cs" />
+    <Content Include="Data\Migrations\20190201165147_AnswerPosition.Designer.cs" />
+    <Content Include="Data\Migrations\20190203170445_AssessmentIdToUserAnswer.cs" />
+    <Content Include="Data\Migrations\20190203170445_AssessmentIdToUserAnswer.Designer.cs" />
+    <Content Include="Data\Migrations\20190205195552_UserResultsTable.cs" />
+    <Content Include="Data\Migrations\20190205195552_UserResultsTable.Designer.cs" />
+    <Content Include="Data\Migrations\20190205222511_AssessmentIdToUserAnswer2.cs" />
+    <Content Include="Data\Migrations\20190205222511_AssessmentIdToUserAnswer2.Designer.cs" />
+    <Content Include="Data\Migrations\20190207093952_VersionNoQuestion.cs" />
+    <Content Include="Data\Migrations\20190207093952_VersionNoQuestion.Designer.cs" />
+    <Content Include="Data\Migrations\20190207101206_versionTypeChange.cs" />
+    <Content Include="Data\Migrations\20190207101206_versionTypeChange.Designer.cs" />
+    <Content Include="Data\Migrations\20190207102215_versionTypeChange2.cs" />
+    <Content Include="Data\Migrations\20190207102215_versionTypeChange2.Designer.cs" />
+    <Content Include="Data\Migrations\20190207105502_statisticstable.cs" />
+    <Content Include="Data\Migrations\20190207105502_statisticstable.Designer.cs" />
+    <Content Include="Data\Migrations\20190207164537_versionControlToStats.cs" />
+    <Content Include="Data\Migrations\20190207164537_versionControlToStats.Designer.cs" />
+    <Content Include="Data\Migrations\20190208215619_scoreStringToInt.cs" />
+    <Content Include="Data\Migrations\20190208215619_scoreStringToInt.Designer.cs" />
+    <Content Include="Data\Migrations\20190210112055_TF.cs" />
+    <Content Include="Data\Migrations\20190210112055_TF.Designer.cs" />
+    <Content Include="Data\Migrations\20190210114813_TfM.cs" />
+    <Content Include="Data\Migrations\20190210114813_TfM.Designer.cs" />
+    <Content Include="Data\Migrations\20190210175928_shortAnswerMig.cs" />
+    <Content Include="Data\Migrations\20190210175928_shortAnswerMig.Designer.cs" />
+    <Content Include="Data\Migrations\20190211113923_InteractiveMig.cs" />
+    <Content Include="Data\Migrations\20190211113923_InteractiveMig.Designer.cs" />
+    <Content Include="Data\Migrations\20190211130830_InteractiveMig2.cs" />
+    <Content Include="Data\Migrations\20190211130830_InteractiveMig2.Designer.cs" />
+    <Content Include="Data\Migrations\20190211143110_InteractiveMig3.cs" />
+    <Content Include="Data\Migrations\20190211143110_InteractiveMig3.Designer.cs" />
+    <Content Include="Data\Migrations\20190211152905_InteractiveMig4.cs" />
+    <Content Include="Data\Migrations\20190211152905_InteractiveMig4.Designer.cs" />
+    <Content Include="Data\Migrations\20190211202627_InteractiveUserAnswers.cs" />
+    <Content Include="Data\Migrations\20190211202627_InteractiveUserAnswers.Designer.cs" />
+    <Content Include="Data\Migrations\20190211203507_InteractiveUserAnswers2.cs" />
+    <Content Include="Data\Migrations\20190211203507_InteractiveUserAnswers2.Designer.cs" />
+    <Content Include="Data\Migrations\20190211230730_InteractiveUserAnswers3.cs" />
+    <Content Include="Data\Migrations\20190211230730_InteractiveUserAnswers3.Designer.cs" />
+    <Content Include="Data\Migrations\20190226004258_me.cs" />
+    <Content Include="Data\Migrations\20190226004258_me.Designer.cs" />
+    <Content Include="Data\Migrations\20190305133700_isunique!.cs" />
+    <Content Include="Data\Migrations\20190305133700_isunique!.Designer.cs" />
+    <Content Include="Data\Migrations\20190401124920_SRss.cs" />
+    <Content Include="Data\Migrations\20190401124920_SRss.Designer.cs" />
+    <Content Include="Data\Migrations\20190401125257_SReee.cs" />
+    <Content Include="Data\Migrations\20190401125257_SReee.Designer.cs" />
+    <Content Include="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="FluentValidation.MVC4" Version="5.1.0" />
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
+    <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+</Project>

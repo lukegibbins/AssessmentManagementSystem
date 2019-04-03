@@ -1,0 +1,108 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>View My Assessments</h2>
+<hr />
+<p>
+    @*Goes to the create page*@
+    <a asp-page="Create" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        &nbsp; Create Assessment
+    </a>
+</p>
+
+@*This is a confirmation message to inform the recent transation (if any)*@
+@if (Model.Message != null)
+{
+    <br />
+    <div class="alert alert-info alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Message
+    </div>
+}
+
+@*If there are no assessments, display this message*@
+@if (Model.GetAllAssessments.Count < 1)
+{
+    <br />
+    <h4>You currently have no assessments. Create an assessment to begin.</h4>
+}
+
+@*Display table info for assessments*@
+<div class="form-border-main">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].AssessmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].LastUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].ActiveStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllAssessments[0].Duration)
+            </th>
+            <th></th>
+        </tr>
+
+        @{ int i = 1;}
+        @foreach (var item in Model.GetAllAssessments)
+        {
+        <tr>
+            <td>
+                @(i++)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.AssessmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.LastUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.ActiveStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Duration)
+            </td>
+            <td>
+                @*...Editing...*@
+                <a asp-page="/Assessments/Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </a>
+                @*...Questions for asssessment...*@
+                <a asp-page="/Questions/Index" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-list"></span>  Questions
+                </a>
+                @*...Deleting...*@
+                <a asp-page="/Assessments/Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </a>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+

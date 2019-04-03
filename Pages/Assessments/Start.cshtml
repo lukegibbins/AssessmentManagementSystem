@@ -1,0 +1,378 @@
+﻿@page
+@using InteractiveAssessment.Models.QuestionModels;
+@using InteractiveAssessment.Models;
+@model InteractiveAssessment.Pages.Assessments.StartModel
+@{
+    ViewData["Title"] = "Start";
+}
+@{
+    var endTime = DateTime.Now.AddSeconds(Model.Timer);
+    var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds.ToString("#");
+}
+<link rel="stylesheet" href="~/css/zoom.css" />
+
+
+<br />
+<div style="text-align:center">
+    <p>Time Remaining: <span id="minRemaining"></span>:<span id="secRemaining"></span> </p>
+</div>
+
+<br />
+<form method="post">
+    @if (Model.CurrentQuestion.QuestionType == "MCQ")
+    {
+        MCQ MCQ = (MCQ)Model.CurrentQuestion;
+
+        <input type="hidden" asp-for="Assessment.Id" />
+        <input type="hidden" asp-for="UserAnswer.AssessmentId" value="@MCQ.AssessmentId" />
+        <input type="hidden" asp-for="UserAnswer.QuestionId" value="@MCQ.Id" />
+        <input type="hidden" asp-for="UserAnswer.UserId" value="@Model.CurrentUserId" />
+        <input type="hidden" name="datetime" value="@DateTime.Now" />
+
+        <h2>@Model.Indexer. @MCQ.QuestionTitle</h2>
+        <hr />
+
+        @if (MCQ.Image != null)
+        {
+            <div style="text-align:center">
+                <img src="@MCQ.Image" class="zoom"  style="margin:auto; border-radius:5px; width:35%; border: 1px solid #033B72;"  />
+            </div>
+            <br />
+        }
+        <div class="well well">
+            <br />
+            @if (Model.UserAnswerPosition == 1)
+            {
+                <input type="radio" value="1" checked asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="1" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>@MCQ.Answer1</label>
+            <br />
+            <br />
+            @if (Model.UserAnswerPosition == 2)
+            {
+                <input type="radio" checked value="2" asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="2" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>@MCQ.Answer2</label>
+            <br />
+            <br />
+            @if (Model.UserAnswerPosition == 3)
+            {
+                <input type="radio" checked value="3" asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="3" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>@MCQ.Answer3</label>
+            <br />
+            <br />
+            @if (Model.UserAnswerPosition == 4)
+            {
+                <input type="radio" checked value="4" asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="4" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>@MCQ.Answer4</label>
+            <br />
+            <br />
+        </div>
+    }
+    else if (Model.CurrentQuestion.QuestionType == "True/False")
+    {
+        TrueFalseOption TrueFalse = (TrueFalseOption)Model.CurrentQuestion;
+        <input type="hidden" asp-for="Assessment.Id" />
+        <input type="hidden" asp-for="UserAnswer.AssessmentId" value="@TrueFalse.AssessmentId" />
+        <input type="hidden" asp-for="UserAnswer.QuestionId" value="@TrueFalse.Id" />
+        <input type="hidden" asp-for="UserAnswer.UserId" value="@Model.CurrentUserId" />
+
+        <h2>@Model.Indexer. @TrueFalse.QuestionTitle</h2>
+        <hr />
+
+        @if (TrueFalse.Image != null)
+        {
+            <div style="text-align:center">
+                <img src="@TrueFalse.Image"  class="zoom" style="margin:auto; border-radius:5px; width:35%;  border: 1px solid #033B72" ; />
+            </div>
+            <br />
+        }
+        <div class="well well">
+            <br />
+            @if (Model.UserAnswerPosition == 1)
+            {
+                <input type="radio" value="1" checked asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="1" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>True</label>
+            <br />
+            <br />
+            @if (Model.UserAnswerPosition == 2)
+            {
+                <input type="radio" checked value="2" asp-for="UserAnswer.AnswerPosition">
+            }
+            else
+            {
+                <input type="radio" value="2" asp-for="UserAnswer.AnswerPosition">
+            }
+            <label>False</label>
+            <br />
+            <br />
+        </div>
+    }
+
+    else if (Model.CurrentQuestion.QuestionType == "Short Answer")
+    {
+        ShortAnswerOption ShortAnswer = (ShortAnswerOption)Model.CurrentQuestion;
+        <input type="hidden" asp-for="Assessment.Id" />
+        <input type="hidden" asp-for="UserAnswer.AssessmentId" value="@ShortAnswer.AssessmentId" />
+        <input type="hidden" asp-for="UserAnswer.QuestionId" value="@ShortAnswer.Id" />
+        <input type="hidden" asp-for="UserAnswer.UserId" value="@Model.CurrentUserId" />
+
+        <h2>@Model.Indexer. @ShortAnswer.QuestionTitle</h2>
+        <hr />
+
+        @if (ShortAnswer.Image != null)
+        {
+            <div style="text-align:center">
+                <img src="@ShortAnswer.Image" class="zoom" style="margin:auto; border-radius:5px; width:35%;  border: 1px solid #033B72" ; />
+            </div>
+            <br />
+        }
+        <div class="well well">
+            <br />
+            <div class="col-sm-2">
+                <label>Type out answer:</label>
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="UserAnswer.AnswerGiven" class="form-control" />
+            </div>
+            <br />
+            <br />
+        </div>
+        <br />
+    }
+
+
+    @***** Interative stuff *****@
+    else if (Model.CurrentQuestion.QuestionType == "Interactive")
+    {
+        Interactive Interactive = (Interactive)Model.CurrentQuestion;
+        <input type="hidden" asp-for="Assessment.Id" />
+        <input type="hidden" asp-for="UserAnswer.AssessmentId" value="@Interactive.AssessmentId" />
+        <input type="hidden" asp-for="UserAnswer.QuestionId" value="@Interactive.Id" />
+        <input type="hidden" asp-for="UserAnswer.UserId" value="@Model.CurrentUserId" />
+
+        <h2>@Model.Indexer. @Interactive.QuestionTitle</h2>
+        <hr />
+        <br />
+        @if (Interactive.Image != null)
+        {
+            <div style="text-align:center">
+                <img src="@Interactive.Image" class="zoom" style="margin:auto; border-radius:5px; width:40%; border: 1px solid #033B72;" />
+            </div>
+            <br />
+        }
+        <p style="text-align:center"><i>* Drag and drop to place entries in order</i></p>
+        <table id="tblLocations" align="center" class="table table-hover table-bordered" style="border: 2px solid #033B72; width:60%">
+            <tr>
+                <th style="text-align:center; text-decoration:underline">Name</th>
+            </tr>
+
+            @if (Model.UserAnswer != null)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @Model.UserAnswer.InteractiveName1
+                        @*send names and row vals*@
+                        <input type="hidden" name="Names" value="@Model.UserAnswer.InteractiveName1" />
+                        <input type="hidden" name="RowId" value="@Model.UserAnswer.RowNo1" />
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @Interactive.Name1
+                        @*send names and row vals*@
+                        <input type="hidden" name="Names" value="@Interactive.Name1" />
+                        <input type="hidden" name="RowId" value="@Interactive.RowNo1" />
+                    </td>
+                </tr>
+            }
+
+            @if (Model.UserAnswer != null)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Model.UserAnswer.InteractiveName2
+                        <input type="hidden" name="names" value="@Model.UserAnswer.InteractiveName2" />
+                        <input type="hidden" name="RowId" value="@Model.UserAnswer.RowNo2" />
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Interactive.Name2
+                        <input type="hidden" name="names" value="@Interactive.Name2" />
+                        <input type="hidden" name="RowId" value="@Interactive.RowNo2" />
+                    </td>
+                </tr>
+            }
+
+            @if (@Model.UserAnswer != null)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Model.UserAnswer.InteractiveName3
+                        <input type="hidden" name="names" value="@Model.UserAnswer.InteractiveName3" />
+                        <input type="hidden" name="RowId" value="@Model.UserAnswer.RowNo3" />
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Interactive.Name3
+                        <input type="hidden" name="names" value="@Interactive.Name3" />
+                        <input type="hidden" name="RowId" value="@Interactive.RowNo3" />
+                    </td>
+                </tr>
+
+            }
+
+            @if (Model.UserAnswer != null)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Model.UserAnswer.InteractiveName4
+                        <input type="hidden" name="names" value="@Model.UserAnswer.InteractiveName4" />
+                        <input type="hidden" name="RowId" value="@Model.UserAnswer.RowNo4" />
+                    </td>
+                </tr>
+            }
+
+            else
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @*send names and row vals*@
+                        @Interactive.Name4
+                        <input type="hidden" name="names" value="@Interactive.Name4" />
+                        <input type="hidden" name="RowId" value="@Interactive.RowNo4" />
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <br />
+    }
+
+
+    @if (@Model.Indexer == 1)
+    {
+        <input type="submit" value="Next Question" class="btn btn-default btn-success" />
+    }
+    else if (@Model.Indexer == Model.Questions.Count())
+    {
+        <a asp-page-handler="Previous" asp-route-id="@Model.Assessment.Id" class="btn btn-primary btn-default">
+            Previous Question
+        </a>
+        <input type="submit" value="Save & Review Answers" class="btn btn-default btn-success" />
+    }
+    else
+    {
+        <a asp-page-handler="Previous" asp-route-id="@Model.Assessment.Id" class="btn btn-primary btn-default">
+            Previous Question
+        </a>
+        <input type="submit" value="Next Question" class="btn btn-default btn-success" />
+    }
+</form>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#tblLocations").sortable({
+                items: 'tr:not(tr:first-child)',
+                cursor: 'pointer',
+                axis: 'y',
+                dropOnEmpty: false,
+                start: function (e, ui) {
+                    ui.item.addClass("selected");
+                },
+                stop: function (e, ui) {
+                    ui.item.removeClass("selected");
+                },
+                receive: function (e, ui) {
+                    $(this).find("tbody").append(ui.item);
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        var remSeconds = @timeRemaining;
+        var secondsCounter = remSeconds % 60;
+
+        if (secondsCounter === 0) {
+            secondsCounter = 1;
+        }
+        function startTick() {
+            document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+            document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds/60));
+
+            function formatNumber(number) {
+                if (number < 10) {
+                    return '0' + number;
+                } else {
+                    return '' + number;
+                }
+            }
+
+            var _tick = setInterval(function () {
+                if (remSeconds > 0) {
+
+                    remSeconds = remSeconds - 1;
+                    secondsCounter = secondsCounter - 1;
+                    document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+                    document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds / 60));
+
+                    if (secondsCounter === 0) {
+                        secondsCounter = 60;
+                    }
+                } else {
+                    window.location.href = '/Assessments/Results?id='+@Model.Assessment.Id+'#nbb';
+                    clearInterval(_tick);
+                }
+
+            }, 1000);
+        }
+        startTick();
+    </script>
+}
+

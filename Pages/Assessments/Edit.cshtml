@@ -1,0 +1,88 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2>Edit Assessment: @Model.Assessment.AssessmentName</h2>
+<hr />
+
+<form method="post">
+    <div class="form-border-main">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        @if (Model.ErrorQuestionMessage != null)
+        {
+            <div class="alert alert-danger alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @Model.ErrorQuestionMessage
+            </div>
+        }
+
+        @*Bind hidden values when an assessment is created*@
+        <input type="hidden" asp-for="Assessment.UserId" />
+        <input type="hidden" asp-for="Assessment.LastUpdated" value="@Model.CurrentDate" />
+        <input type="hidden" asp-for="Assessment.Id" />
+
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label class="custom-label"> Id</label>
+
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="Assessment.Id" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label asp-for="Assessment.AssessmentName" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="Assessment.AssessmentName" class="form-control" />
+            </div>
+            <span asp-validation-for="Assessment.AssessmentName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label asp-for="Assessment.Password" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                <input asp-for="Assessment.Password" class="form-control" />
+            </div>
+            <span asp-validation-for="Assessment.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label asp-for="Assessment.ActiveStatus" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(m => m.Assessment.ActiveStatus, Model.ActiveOptions, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm2">
+                <label asp-for="Assessment.Duration" class="custom-label"></label>
+            </div>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(m => m.Assessment.Duration, Model.DurationOptions, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <br />
+
+
+    <div class="form-group">
+        <input type="submit" value="Update Assessment" class="btn btn-default btn-success" />
+        <a asp-page="Index" class="btn btn-default btn-primary">Back to Assessments</a>
+    </div>
+</form>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,110 @@
+﻿@page
+@model InteractiveAssessment.Pages.Questions.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>My Questions: @Model.Assessment.AssessmentName</h2>
+<hr />
+<br />
+<p>
+    @*Goes to the create page*@
+    <a asp-page="MultipleChoice/Create" asp-route-id="@Model.Assessment.Id" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        &nbsp; Add Multiple-choice Question (MCQ)
+    </a>
+    <a asp-page="TrueFalse/Create" asp-route-id="@Model.Assessment.Id" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus"></span>
+        &nbsp; Add True/False Question
+    </a>
+    <a asp-page="ShortAnswer/Create" asp-route-id="@Model.Assessment.Id" class="btn btn-warning">
+        <span class="glyphicon glyphicon-plus"></span>
+        &nbsp; Add Short Answer Question
+    </a>
+    <a asp-page="DragnDrop/Create" asp-route-id="@Model.Assessment.Id" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span>
+        &nbsp; Add Interactive Question
+    </a>
+</p>
+
+
+@*This is a confirmation message to inform the recent transation (if any)*@
+@if (Model.Message != null)
+{
+    <br />
+    <div class="alert alert-info alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Message
+    </div>
+}
+
+@*If there are no assessments, display this message*@
+@if (Model.GetAllQuestions.Count < 1)
+{
+    <br />
+    <h4>You currently have no questions. Add an question to begin.</h4>
+}
+
+@*Display table info for assessments*@
+<div class="form-border-main">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                No.
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllQuestions[0].QuestionTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllQuestions[0].QuestionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllQuestions[0].LastUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GetAllQuestions[0].Include)
+            </th>
+            <th></th>
+        </tr>
+
+        @{ int i = 1;}
+        @foreach (var item in Model.GetAllQuestions)
+        {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.QuestionTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.QuestionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.LastUpdated)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Include)
+                </td>
+                <td>
+                    @*...Accessing assessment questions...*@
+                    <a asp-controller="Question"  asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-list-alt"></span> View
+                    </a>
+                    @*...Editing: This is a different route which routes to a EditController...*@
+                    <a asp-controller="Question" asp-action="Edit" asp-route-id="@item.Id"
+                         class="btn btn-info btn-sm"> Edit
+                        <span class="glyphicon glyphicon-pencil"></span> 
+                    </a>
+                    @*...Deleting...*@
+                    <a asp-controller="Question" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

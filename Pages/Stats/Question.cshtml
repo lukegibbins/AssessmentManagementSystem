@@ -1,0 +1,84 @@
+﻿@page
+@model InteractiveAssessment.Pages.Stats.QuestionModel
+@{
+    ViewData["Title"] = "Question";
+}
+
+<br />
+<h2>Question Statistics: @Model.Assessment.AssessmentName </h2>
+<hr />
+
+@*If there are no assessments, display this message*@
+@if (Model.Questions.Count() < 1)
+{
+    <br />
+    <h4>There are no questions for this assessment to generate statistics.</h4>
+}
+
+<p style="font-size:small"><i>* Pass rate refers to the amount of times a question has been succesfully answered</i></p>
+@*Display table info for assessments*@
+<form method="post">
+    <div class="form-border-main">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Questions[0].QuestionTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Questions[0].VersionNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Questions[0].QuestionType)
+                </th>
+                <th>
+                    Pass rate
+                </th>
+                <th></th>
+            </tr>
+
+            @{ int i = 1;}
+            @{ int Indexer = 0; }
+            @foreach (var item in Model.Questions)
+            {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.QuestionTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.VersionNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.QuestionType)
+                </td>
+                @if (@Model.QuestionPassRate[Indexer] != -1)
+                {
+                    @if (@Model.QuestionPassRate[Indexer] >= 40)
+                    {
+                        <td style="color:green">
+                            @Model.QuestionPassRate[Indexer++]%
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color:red">
+                            @Model.QuestionPassRate[Indexer++]%
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>
+                        N/A
+                    </td>
+                }
+            </tr>
+            }
+        </table>
+    </div>
+</form>

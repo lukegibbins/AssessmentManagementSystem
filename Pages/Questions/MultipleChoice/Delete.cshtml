@@ -1,0 +1,110 @@
+﻿@page
+@model InteractiveAssessment.Pages.Questions.MultipleChoice.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2>Delete multiple-choice</h2>
+<hr />
+
+<form method="post">
+    <div class="form-border-main">
+
+        @*Bind hidden values when an multiple-choice question is created
+        This will bind the assessmentId to the question
+        *@
+        <input type="hidden" asp-for="MultipleChoice.Id" />
+        <input type="hidden" asp-for="MultipleChoice.AssessmentId" value="@Model.MultipleChoice.AssessmentId" />
+        <input type="hidden" asp-for="MultipleChoice.QuestionType" value="MCQ" />
+        <input type="hidden" asp-for="MultipleChoice.LastUpdated" value="@Model.CurrentDate" />
+        <fieldset disabled>
+            <br />
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.QuestionTitle" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    <input asp-for="MultipleChoice.QuestionTitle" class="form-control" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.Answer1" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="MultipleChoice.Answer1" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.Answer2" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="MultipleChoice.Answer2" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.Answer3" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="MultipleChoice.Answer3" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.Answer4" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="MultipleChoice.Answer4" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row has-success">
+                <div class="col-sm-2">
+                    <label asp-for="MultipleChoice.CorrectAnswer" class="custom-label"></label>
+                </div>
+                <div class="col-lg-3">
+                    @Html.DropDownListFor(m => m.MultipleChoice.CorrectAnswer, Model.AnswerOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row has-warning">
+                <div class="col-sm2">
+                    <label asp-for="MultipleChoice.Feedback" class="custom-label"></label>
+                </div>
+                <div class="col-lg-6">
+                    @Html.TextAreaFor(m => m.MultipleChoice.Feedback, 10, 15, new { @class = "form-control" })
+                </div>
+            </div>
+            <hr />
+            @*Image Upload here*@
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="MultipleChoice.Image" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            @if (Model.MultipleChoice.Image != null)
+            {
+                <div style="padding-left:190px">
+                    <img src="@Model.MultipleChoice.Image" style="border-radius:5px; width:35%; border: 1px solid #bbb9b9" />
+                </div>
+            }
+            <hr />
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.MultipleChoice.Include, new { @checked = true }) Include question in assessment
+                </label>
+            </div>
+        </fieldset>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete Question" class="btn btn-default btn-danger" />
+                <a asp-page="/Questions/Index" asp-route-id="@Model.MultipleChoice.AssessmentId" class="btn btn-default btn-primary">Back to Questions</a>
+            </div>
+    </div>
+</form>

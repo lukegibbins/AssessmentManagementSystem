@@ -1,0 +1,64 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.AssessmentDetailsModel
+@{
+    ViewData["Title"] = "AssessmentDetails";
+}
+
+<br />
+<h2>Assessment Brief</h2>
+<hr />
+<br />
+
+<div style="clear:both; margin:0 auto">
+    <div class="panel panel-primary custom-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Assessment Brief</h3>
+        </div>
+        <div class="panel-body">
+            <h4 style="font-weight:bold; text-decoration:underline">Assessment Details</h4>
+            <br />
+            <ul class="list-group" style="border: 1px solid;">
+                <li class="list-group-item">
+                    <strong>Assessment Name: </strong> &nbsp; @Model.Assessment.AssessmentName
+                </li>
+                <li class="list-group-item">
+                    <strong>Assessment Creator:</strong>&nbsp; @Model.AssessmentCreator.FullName (@Model.AssessmentCreator.Email)
+                </li>
+                <li class="list-group-item">
+                    <strong>Duration:</strong> &nbsp; @Model.Assessment.Duration minutes
+                </li>
+            </ul>
+            <br />
+            <h4 style="font-weight:bold; text-decoration:underline">Assessment Instructions</h4>
+            <br />
+            <ul class="list-group" style="border: solid 1px;">
+                <li class="list-group-item">
+                    This assessment will consist of various question types such as MCQ (multiple-choice questions), Short answer questions, True or False questions and Interactive List-sorting questions; each question type may or may not include associating images and all images can be <b>resized by hovering over them with a mouse</b>.
+                    <br /><br />
+                    Before starting the assessment, ensure you are equipped with a mouse and keyboard to allow you to answer each of the question types. Once the assessment has started, you may navigate between questions by simply clicking ‘Next’ and ‘Previous’ answering questions as you go; it is possible to re-visit and change your answers if you feel that you may have missed out a question or answered one incorrectly.
+                    <br /><br />
+                    After all questions have been answered on the assessment, you will be presented with a ‘Check your answers’ page. You will have the opportunity to briefly review the answers you have provided for the questions. When you are happy with the answers given, you may click ‘Submit’ to submit your answers for the assessment.
+                    <br /><br />
+                    When the assessment has finished, you can view you achieved score as well as which answers you got correct and incorrect. There is also a chance you read feedback given from each answer to allow you to learn from the experience.
+                    <br /><br /><br />
+                    <strong><i> Answering each question type</i></strong>
+                    <br /><br />
+                    <ul>
+                        <li><strong>MCQ:</strong> to answer a multiple-choice question, use the mouse to click and select 1 option out of a possible 4.</li>
+                        <li><strong>Short Answer: </strong> to answer a short answer question, use the keyboard to type in a word.</li>
+                        <li><strong>True/False:</strong> to answer true/false question, use the mouse to click and select 1 option out of a possible 2.</li>
+                        <li><strong>Interactive List-sorting:</strong> to answer a list-sorting question, use the mouse to drag and drop each list option item to re-order the list.</li>
+                    </ul>
+                    <br /><br />
+                                <div style="text-align:center"><i>Good Luck!</i></div>
+                </li>
+            </ul>
+            <br />
+            <a asp-page="/Assessments/Start" asp-route-id="@Model.Assessment.Id" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-arrow-right"></span> Start
+            </a>
+        </div>
+        </div>
+</div>
+
+

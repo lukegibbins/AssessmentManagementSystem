@@ -1,0 +1,69 @@
+﻿@page
+@model InteractiveAssessment.Pages.Assessments.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<br />
+<h2>Delete Assessment: @Model.Assessment.AssessmentName</h2>
+<hr />
+
+<form method="post">
+    <div class="form-border-main">
+
+        @*Bind hidden values when an assessment is created*@
+        <input type="hidden" asp-for="Assessment.Id" />
+        <fieldset disabled>
+            <div class="form-group row">
+                <div class="col-sm2">
+                    <label asp-for="Assessment.AssessmentName" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Assessment.AssessmentName" class="form-control" />
+                </div>
+                <span asp-validation-for="Assessment.AssessmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm2">
+                    <label asp-for="Assessment.Password" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    <input asp-for="Assessment.Password" class="form-control" />
+                </div>
+                <span asp-validation-for="Assessment.Password" class="text-danger"></span>
+            </div>
+            @*w*@
+            <div class="form-group row">
+                <div class="col-sm2">
+                    <label asp-for="Assessment.ActiveStatus" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    @Html.DropDownListFor(m => m.Assessment.ActiveStatus, Model.ActiveOptions, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm2">
+                    <label asp-for="Assessment.Duration" class="custom-label"></label>
+                </div>
+                <div class="col-lg-4">
+                    @Html.DropDownListFor(m => m.Assessment.Duration, Model.DurationOptions, new { @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <br />
+
+
+    <div class="form-group">
+        <input type="submit" value="Delete Assessment" class="btn btn-default btn-danger" />
+        <a asp-page="Index" class="btn btn-default btn-primary">Back to Assessments</a>
+    </div>
+</form>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

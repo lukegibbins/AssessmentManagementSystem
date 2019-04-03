@@ -1,0 +1,83 @@
+﻿@page
+@model InteractiveAssessment.Pages.Results.StudentModel
+@{
+    ViewData["Title"] = "Student";
+}
+
+<br />
+<h2>My Results</h2>
+<hr />
+
+@*If there are no assessments, display this message*@
+@if (Model.StudentResults.Count() < 1)
+{
+    <br />
+    <h4>You have not completed any assessments.</h4>
+}
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-info alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Message
+    </div>
+}
+
+@*Display table info for assessments*@
+<br />
+<form method="post">
+    <div class="form-border-main">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.StudentResults[0].AssessmentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.StudentResults[0].DateTaken)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.StudentResults[0].StudentScore)
+                </th>
+                <th></th>
+            </tr>
+
+            @{ int i = 1;}
+            @foreach (var item in Model.StudentResults)
+            {
+                <tr>
+                    <td>
+                        @(i++)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.AssessmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DateTaken)
+                    </td>
+                    @if (item.StudentScore >= 40)
+                    {
+                        <td style="color:green">
+                            @Html.DisplayFor(m => item.StudentScore)%
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color:red">
+                            @Html.DisplayFor(m => item.StudentScore)%
+                        </td>
+                    }
+                    <td>
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-link btn-sm">Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</form>
+
+
